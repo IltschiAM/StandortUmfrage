@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Haftungsausschluss und Datenschutz</title>
+  <link rel="icon" type="images/png" href="iamges/favicon-16.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <nav>
+     <div class="topnav">
+       <a id="navStart" href="index.html">Start</a>
+       <a id="navHilfe" href="help.html">Hilfe</a>
+       <a id="navDisclaimer" href="disclaimer.html" class="menuactive">Disclaimer</a>
+       <span>
+         <label id="languageLabel" class="nav-link" for="languageSelect">Sprache:</label>
+         <select id="languageSelect">
+           <option value="de">Deutsch</option>
+           <option value="en">English</option>
+           <option value="fr">Français</option>
+         </select>
+       </span>
+     </div>
+  </nav>
+  <header class="hero">
+    <div class="hero-overlay">
+      <h1 class="hero-title" id="hero_title">Willkommen zur Standort-Umfrage</h1>
+      <p class="hero-subtitle" id="hero_subtitle">für alle Athletic Maniacs Spieler</p>
+    </div>
+  </header>
+  <script src="translations.js"></script>
+  <script>
+    const translationsDisclaimer = {
+      de: {
+        title: "Haftungsausschluss und Datenschutz",
+        back: "Zurück zur Hauptseite",
+        content: `
+        
+<h2>Haftungsausschluss</h2>
+<p>Diese Webseite dient der ausschließlich privaten Nutzung der Teammitglieder des Vereins Athletic Maniacs im Spiel Athletics Mania und Summer Sport Mania.
+Es werden weder kommerzielle Dienste angeboten, noch sind die Inhalte für eine kommerzielle Nutzung vorgesehen.</p>
+<p>Der private Nutzerkreis beschränkt sich ausschließlich auf die Teammitglieder des Vereins Athletic Maniacs.</p>
+
+<h3>Haftung für Inhalte</h3>
+<p>Als Diensteanbieter bin ich gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. 
+Nach §§ 8 bis 10 TMG bin ich als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.</p>
+
+<p>Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. 
+Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden von entsprechenden Rechtsverletzungen werden wir diese Inhalte umgehend entfernen.</p>
+
+<h3>Haftung für Links</h3>
+<p>Die Webseite enthält evtl. Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. 
+Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. 
+Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. 
+Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft. 
+Rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht erkennbar.<p>
+
+<p>Eine permanente inhaltliche Kontrolle der verlinkten Seiten ist jedoch ohne konkrete Anhaltspunkte einer Rechtsverletzung nicht zumutbar. 
+Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Links umgehend entfernen.<p>
+
+<h3>Details zur Datenspeicherung</h3>
+<p>Diese Webseite ermöglicht den Teammitgliedern dem Team mitzuteilen, in welcher Region jemand lebt.
+Es obliegt dem Teammitglied, in welcher Genauigkeit es diese Information angeben möchte.
+Die bereitgestellten Informationen wie Spielername, Spielzuordnung und Heimatregion in diesem Umfragedienst werden als mit einem Link öffentlich geteiltes Google Sheet auf einem Google Account gespeichert.
+Da diese Google Url im JavaScript Code dieser Webseite eingebettet ist, und diese WebSeite öffentlich ist, ist es theoretisch möglich, dass auch dem Team fremde Dritte diese Informationen einsehen könnten.
+Der Speicherort der Datenbankdatei auf dem Google Account kann außerhalb der EU liegen.
+</p>
+<h3>Mitwirkungspflicht</h3>
+<p>Aus Gründen des Schutzes der eigenen Privatsphäre und wegen des technischen Sachverhalts der quasi öffentlichen Speicherung sind die Teammitglieder angehalten der Regionsangabe nur grob nachzukommen, 
+also insbesondere nicht die genau Wohnadresse auszuwählen.</p>
+<p>Teammitglieder werden genauso gebeten, die Angaben der Mitspieler auch nur als solche groben Angaben zu verstehen und die Positionsauswahl nicht als konkrete mit der Person verbundene Lokation zu interpretieren.
+</p>
+<h3>Datenschutz & Kontakt</h3>
+<p>Bei Fragen zu Inhalten und zum Datenschutz oder dem Wunsch, dass Inhalte und Datenbank-Einträge gelöscht werden sollen, kontaktiere mich bitte im Spiel oder per E-Mail.</p>
+<p id="emailDe"></p>
+        `
+      },
+      en: {
+        title: "Disclaimer and Privacy",
+        back: "Back to main page",
+        content: `
+<h2>Disclaimer</h2>
+<p>This website is for the exclusive private use of the team members of the Athletic Maniacs club in the game Athletics Mania and Summer Sport Mania.
+No commercial services are offered, nor is the content intended for commercial use.</p
+<p>The private user group is limited exclusively to the team members of the Athletic Maniacs club.</p>
+
+<h3>Liability for content</h3>
+<p>As a service provider, I'm responsible for own content on these pages in accordance with Section 7 (1) of the German Telemedia Act (TMG). 
+However, according to Sections 8 to 10 TMG, as a service provider I'm not obliged to monitor transmitted or stored third-party information or to investigate circumstances that indicate illegal activity.</p>
+
+<p>Obligations to remove or block the use of information in accordance with general legislation remain unaffected by this. 
+However, liability in this respect is only possible from the time of knowledge of a specific infringement. As soon as we become aware of such legal violations, we will remove this content immediately.</p>
+
+<h3>Liability for links</h3>
+<p>The website may contain links to external third-party websites over whose content we have no influence. 
+Therefore, we cannot accept any liability for this third-party content. 
+The respective provider or operator of the pages is always responsible for the content of the linked pages. 
+The linked pages were checked for possible legal violations at the time of linking. 
+Illegal content was not recognisable at the time of linking.<p>
+
+<p>A permanent control of the content of the linked pages is not reasonable without concrete evidence of an infringement. 
+If we become aware of any legal infringements, we will remove such links immediately.<p>
+
+<h3>Details on data storage</h3>
+<p>This website allows team members to tell the team in which region someone lives.
+It is up to the team member to decide how accurate they want to provide this information.
+The information provided such as player name, game assignment and home region in this survey service is stored as a Google Sheet shared publicly with a link on a Google Account.
+Since this Google Url is embedded in the JavaScript code of this website and this website is public, it is theoretically possible that third parties outside the team could also view this information.
+The storage location of the database file on the Google account may be outside the EU.
+</p>
+<h3>Obligation to cooperate</h3>
+<p>For reasons of protecting their own privacy and due to the technical circumstances of quasi-public storage, team members are required to only roughly comply with the region information, 
+i.e. in particular not to select the exact residential address.</p>
+<p>Team members are also asked to understand the information provided by the other players only as such rough information and not to interpret the position selection as a specific location associated with the person.
+</p>
+<h3>Privacy & Contact</h3>
+<p>If you have any questions about content and data protection or wish to have content and database entries deleted, please contact me in-game or by email.</p>
+          <p id="emailEn"></p>
+        `
+      },
+      fr: {
+        title: "Avertissement",
+        back: "Retour à la page principale",
+        content: `
+<h2>Avertissement</h2
+<p>Ce site est destiné à un usage exclusivement privé des membres de l'équipe de l'association Athletic Maniacs dans le jeu Athletics Mania et Summer Sport Mania.
+Aucun service commercial n'est proposé et le contenu n'est pas destiné à une utilisation commerciale.</p>
+<p>Le cercle d'utilisateurs privés se limite exclusivement aux membres de l'équipe de l'association Athletic Maniacs.</p>
+
+<h3>Responsabilité pour le contenu</h3>
+<p>En tant que prestataire de services, je suis responsables de mes propres contenus sur ces pages conformément au § 7 alinéa 1 de la loi allemande sur les télémédias (TMG), selon les lois générales. 
+Conformément aux §§ 8 à 10 de la TMG, je ne suis toutefois pas tenus, en tant que prestataires de services, de surveiller les informations externes transmises ou enregistrées ou de rechercher les circonstances qui indiquent une activité illégale.</p>
+
+<p>Les obligations de supprimer ou de bloquer l'utilisation d'informations conformément aux lois générales ne sont pas affectées par cette disposition. 
+Une responsabilité à cet égard n'est toutefois possible qu'à partir du moment où une violation concrète de la loi est connue. Dès que nous aurons connaissance de telles violations, nous supprimerons immédiatement ces contenus.</p>
+
+<h3>Responsabilité pour les liens</h3>
+<p>Le site Internet contient éventuellement des liens vers des sites Internet externes de tiers, sur le contenu desquels nous n'avons aucune influence. 
+C'est pourquoi nous ne pouvons pas non plus nous porter garants de ces contenus externes. 
+Le fournisseur ou l'exploitant des pages liées est toujours responsable de leur contenu. 
+Les pages liées ont été contrôlées au moment de la création du lien afin de vérifier qu'elles ne présentaient pas d'infraction à la loi. 
+Aucun contenu illégal n'a été identifié au moment de la création des liens.</p>
+
+<p>Un contrôle permanent du contenu des pages liées n'est toutefois pas exigible sans indices concrets d'une violation de la loi. 
+Dès que nous aurons connaissance d'une violation de la loi, nous supprimerons immédiatement les liens concernés.</p>
+
+<h3>Détails sur le stockage des données</h3>
+<p>Ce site permet aux membres de l'équipe de communiquer à l'équipe la région dans laquelle ils vivent.
+Il appartient au membre de l'équipe de décider du degré de précision qu'il souhaite donner à cette information.
+Les informations fournies dans ce service de sondage, telles que le nom du joueur, l'affectation au jeu et la région d'origine, sont stockées sur un compte Google sous la forme d'une feuille Google partagée publiquement avec un lien.
+Comme cette URL Google est intégrée dans le code JavaScript de ce site web et que cette page web est publique, il est théoriquement possible que des tiers étrangers à l'équipe puissent également consulter ces informations.
+Le lieu de stockage du fichier de base de données sur le compte Google peut se situer en dehors de l'UE.
+</p>
+<h3>Devoir de coopération</h3>
+<p>Pour des raisons de protection de leur propre vie privée et en raison du fait technique du stockage quasi public, les membres de l'équipe sont tenus de ne répondre que grossièrement à l'indication de la région, 
+en particulier de ne pas sélectionner l'adresse exacte de leur domicile.</p>
+<p>Les membres de l'équipe sont également priés de ne considérer les indications des autres joueurs que comme des indications approximatives et de ne pas interpréter le choix de la position comme un lieu concret lié à la personne.
+</p>
+<h3>Protection des données & contact</h3>
+<p>Si vous avez des questions sur le contenu et la protection des données ou si vous souhaitez que le contenu et les entrées de la base de données soient supprimés, veuillez me contacter en jeu ou par e-mail.</p>
+          <p id="emailFr"></p>
+        `
+      }
+    };
+
+    function getLang() {
+      const params = new URLSearchParams(window.location.search);
+      const lang = params.get("lang");
+      return translationsDisclaimer[lang] ? lang : "de";
+    }
+    
+    function showEmail(id) {
+      const user = "amiltschi";
+      const domain = "google.com";
+      const element = document.getElementById(id);
+      if (element) {
+        const link = document.createElement("a");
+        link.href = "mailto:" + user + "@" + domain;
+        link.textContent = user + "@" + domain;
+        element.appendChild(link);
+      }
+    }
+
+
+    function applyTranslation() {
+      const lang = getLang();
+      const t = translationsDisclaimer[lang];
+      const t_gen = translations[lang];
+      document.title = t.title;
+      document.getElementById("content").innerHTML = t.content;
+
+      document.getElementById("navStart").textContent = t_gen.start;
+      document.getElementById("navHilfe").textContent = t_gen.help;
+      document.getElementById("navDisclaimer").textContent = t_gen.disclaimer;
+      document.getElementById("languageLabel").textContent = t_gen.language + ":";
+      // Links aktualisieren mit Sprachparametern
+      document.getElementById("navStart").href = `index.html?lang=${lang}`;
+      document.getElementById("navHilfe").href = `help.html?lang=${lang}`;
+      document.getElementById("navDisclaimer").href = `disclaimer.html?lang=${lang}`;
+
+      document.getElementById("languageSelect").value = lang;
+      document.getElementById("languageSelect").addEventListener("change", (e) => {
+        const newLang = e.target.value;
+        const url = new URL(window.location.href);
+        url.searchParams.set("lang", newLang);
+        window.location.href = url.toString();
+      })
+
+      document.getElementById("hero_title").textContent = t_gen.hero_title;
+      document.getElementById("hero_subtitle").textContent = t_gen.hero_subtitle;
+
+      if (lang === "de") showEmail("emailDe");
+      if (lang === "en") showEmail("emailEn");
+      if (lang === "fr") showEmail("emailFr");
+    }
+
+    window.addEventListener("DOMContentLoaded", applyTranslation);
+  </script>
+</head>
+<body>
+  <main id="content"></main>
+</body>
+</html>

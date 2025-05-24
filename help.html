@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hilfe</title>
+  <link rel="icon" type="images/png" href="images/favicon-16.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav>
+     <div class="topnav">
+       <a id="navStart" href="index.html">Start</a>
+       <a id="navHilfe" href="help.html" class="menuactive">Hilfe</a>
+       <a id="navDisclaimer" href="disclaimer.html">Disclaimer</a>
+       <span>
+         <label id="languageLabel" class="nav-link" for="languageSelect">Sprache:</label>
+         <select id="languageSelect">
+           <option value="de">Deutsch</option>
+           <option value="en">English</option>
+           <option value="fr">Français</option>
+         </select>
+       </span>
+     </div>
+  </nav>
+  <header class="hero">
+    <div class="hero-overlay">
+      <h1 class="hero-title" id="hero_title">Willkommen zur Standort-Umfrage</h1>
+      <p class="hero-subtitle" id="hero_subtitle">Für alle Athletic Maniacs Spieler</p>
+    </div>
+  </header>
+
+  <main id="content"></main>
+  
+  <table class="hilfe-tabelle">
+  <tr>
+    <td><img src="images/help/player-input.jpg" alt="Spielername" class="hilfe-icon" /></td>
+    <td class="trennlinie" id="spielernameEingabe"></td>
+  </tr>
+  <tr>
+    <td><img src="images/help/game-selection.png" alt="Spielauswahl" class="hilfe-icon" /></td>
+    <td class="trennlinie" id="spielauswahl"></td>
+  </tr>
+  <tr>
+    <td><img src="images/help/click-map.jpg" alt="Klick auf Karte" class="hilfe-icon" /></td>
+    <td class="trennlinie" id="standortWahl"></td>
+  </tr>
+  <tr>
+    <td><img src="images/help/filter-options.png" alt="Filter" class="hilfe-icon" /></td>
+    <td class="trennlinie" id="filter"></td>
+  </tr>
+  <tr>
+    <td><img src="images/help/map-description.png" alt="Kartenlegende" class="hilfe-icon" /></td>
+    <td class="trennlinie" id="kartenlegende"></td>
+  </tr>
+  <tr>
+    <td><img src="images/help/status-display.png" alt="Statusanzeige" class="hilfe-icon" /></td>
+    <td class="trennlinie" id="statusanzeige"></td>
+  </tr>
+</table>
+  <script src="translations.js"></script>
+  <script>
+    const translationsHelp = {
+      de: {
+        title: "Hilfe",
+        back: "Zurück zur Hauptseite",
+        content: `
+          <h2>Hilfe zur Standort-Umfrage</h2>
+          <p>Liebe Athetic Maniac Teams von Athetics Mania und Summer Sports Mania,</p>
+          <p>ich habe mir überlegt, ob es nicht für alle mal interessant wäre, aus welcher Region wir Spieler eigentlich so kommen.</p>
+          <p>Darum habe ich eine Art Umfrage vorbereitet, bei der Ihr auf einer Karte per Mausklick bzw. Fingertouch angeben könnt, wo Ihr herkommt.</p>
+          <p>Das ganze ist hoffentlich so einfach gestaltet, dass man zum einen seine eigenen Daten angeben kann, und zum anderen auch alle anderen Teammitglieder sehen kann, was sie mitgeteilt haben.</p>
+          <p>Ich würde mich über eine rege Teilnahme freuen, und dss ganze auch ein bisschen zum weiteren Team Building beiträgt.</p>
+          <p>Im folgenden findet Ihr eine genauere Beschreibung, wie das ganze funktioniert, und Erklärungen, was die Darstellungen bedeuten.</p>
+          <p>Bitte beachtet auch die Hinweise zum Datenschutz im Disclaimer.</p>
+
+          <h2>Kurzbeschreibung</h2>
+          <ul>
+            <li>Gib Deinen Spielernamen ein.</li>
+            <li>Wähle Deine gespielten Spiele aus.</li>
+            <li>Klicke auf die Karte, um Deinen ungefähren Standort zu setzen.</li>
+            <li>Deine Markierung wird gespeichert und angezeigt.</li>
+          </ul>
+          <br>
+          <h2>Detailbeschreibung</h2>
+        `
+      },
+      en: {
+        title: "Help",
+        back: "Back to main page",
+        content: `
+          <h2>Help with the location survey</h2>
+          <p>Dear Athetic Maniac teams from Athetics Mania and Summer Sports Mania,</p>
+          <p>I was wondering whether it would be interesting for everyone to know which region we players actually come from.</p>
+          <p>That's why I've prepared a kind of survey in which you can indicate where you come from on a map with a click of the mouse or a touch of your finger.</p>
+          <p>I hope the whole thing is designed to be simple enough for you to enter your own details and for all the other team members to see what you have shared.</p>
+          <p>I would be delighted to see a lot of participation and that it also contributes a little to further team building.</p>
+          <p>In the following you will find a more detailed description of how the whole thing works and explanations of what the illustrations mean.</p>
+          <p>Please also note the information on data protection in the disclaimer.</p>
+
+          <h2>Short description</h2>
+          <ul>
+            <li>Enter your player name.[mandatory]</li>
+            <li>Select the games you play.[mandatory]</li>
+            <li>Click the map to set your approximate location.</li>
+            <li>Your marker will be saved and displayed.</li>
+          </ul>
+
+          <h2>Detailed description</h2>
+        `
+      },
+      fr: {
+        title: "Aide",
+        back: "Retour à la page principale",
+        content: `
+          <h2>Aide à l'enquête de site</h2>
+          <p>Chers équipes Athetic Maniac d'Athetics Mania et de Summer Sports Mania,</p>
+          <p>Je me suis demandé s'il ne serait pas intéressant pour tout le monde de savoir de quelle région nous, les joueurs, sommes originaires.</p>
+          <p>C'est pourquoi j'ai préparé une sorte de sondage où vous pouvez indiquer sur une carte, en cliquant avec la souris ou en touchant du doigt, d'où vous venez.</p>
+          <p>J'espère que le tout sera suffisamment simple pour que, d'une part, vous puissiez indiquer vos propres données et que, d'autre part, tous les autres membres de l'équipe puissent voir ce qu'ils ont communiqué.</p>
+          <p>Je me réjouirais d'une grande participation, et que cela contribue un peu à la construction de l'équipe.</p>
+          <p>Vous trouverez ci-dessous une description plus détaillée du fonctionnement de l'ensemble et des explications sur la signification des représentations.</p>
+          <p>Veuillez prendre note des informations sur la protection des données dans la clause de non-responsabilité.</p>
+          
+          <h2>Brève description</h2>
+          <ul>
+            <li>Entre ton nom de joueur.[obligatoire]</li>
+            <li>Sélectionne les jeux auxquels tu joues.[obligatoire]</li>
+            <li>Clique sur la carte pour indiquer ta position approximative.</li>
+            <li>Ton marqueur sera enregistré et affiché.</li>
+          </ul>
+
+          <h2>Description détaillée</h2>
+        `
+      }
+    };
+
+  const translationsHelpNew = {
+  de: {
+    hilfeUeberschrift: "Hilfe zur Anwendung",
+    spielernameEingabe: `
+      <p>Trage hier Deinen Spielernamen ein, um Dich zu identifizieren. [Pflicht]</p>
+      <p>Wenn Du später noch einmal überprüfen möchtest, welche Position Du eingegeben hast, 
+      kannst Du einfach Deinen Namen hier eintragen, und Dein Marker wird hervorgehoben.</p>
+    `,
+    spielauswahl: "Wähle aus, welche Spiele Du spielst (AM, SSM oder beide).[Pflicht]",
+    standortWahl: `
+      <p>Klicke auf die Karte, um Deinen ungefähren Standort zu markieren.</p>
+      <p>Solange Dein Spielername und eine Spielauswahl von Dir angegeben ist,
+      kannst Du durch einen erneuten Klick Deine Position neu setzen bzw. aktualisieren.</p>
+      <p>Falls ein Teammitglied bereits einen Marker in Deiner Region gesetzt hat, 
+      dann zoome tiefer in die Karte, damit Du eine eigene Position mit Abstand eingeben kannst.</p>
+      <p>Auf mobilen Geräten mit Touchscreen kannst Du mit Hilfe der üblichen Zwei-Finger-Zoom-Geste 
+      in die Karte hinein oder heraus zoomen. An einem PC kannst Du mit Hilfe von Strg + Mausscrolltaste zoomen.</p>
+      <p>Die Karte verschieben lässt sich auf einem Mobilgerät per Zwei-Finger-Schiebe-Geste. 
+      An einem PC greifst Du bei gedrückter, linker Auswahltaste die Karte und ziehst bzw. verschiebst sie.</p>
+      `,
+    filter: "Nutze die Filter, um die angezeigten Marker nach Spieltyp zu filtern.",
+    kartenlegende: `<p>Nach Deiner Standortauswahl wird eine blaue Nadel zur Kontrolle angezeigt.<p>
+       <p>Für jeden Spieler wird entsprechend der ausgewählten Spiele eine Farbmarkierung gesetzt. 
+       Eine <span style="color: blue;">blaue</span> Markierung steht für <span style="color: blue;">AM</span>, eine <span style="color: orange;">orangene für SSM</span>, und eine <span style="color: green;">grüne</span> Färbung represetiert einen Spieler, 
+       der <span style="color: green;">AM und SSM</span> spielt.</p>
+       <p>Deine farbige Markierung erhält zusätzlich einen <span style="color: red;">roten Rand</span>.</p>
+       <p>Falls es Spieler gibt, die nicht im aktuellen Kartenausschnitt sichtbar sind, werden <span style="color: red;">rote Kreispfeile</span> an 
+       den Rändern angezeigt, um die Richtung anzuzeigen, wo sich noch Spieler befinden.</p>
+       <p>Wenn Du auf die Marker anderer Spieler klickst, erscheint der Spielername.</p>
+       `,
+    statusanzeige: "Zeigt den aktuellen Status deiner Eingabe und Übermittlung an."
+  },
+  en: {
+    hilfeUeberschrift: "Help for the application",
+    spielernameEingabe: `
+      <p>Enter your player name to identify yourself.[mandatory]</p>
+      <p>If you want to check again later which position you have entered, 
+      you can simply enter your name here and your marker will be highlighted.</p>
+      `,
+    spielauswahl: "Select which games you play (AM, SSM, or both).[mandatory]",
+    standortWahl: `
+      <p>Click on the map to mark your approximate location.</p>
+      <p>As long as you have entered your player name and a game selection,
+      you can reset or update your position by clicking again.</p>
+      <p>If a team member has already placed a marker in your region, 
+      then zoom deeper into the map so that you can enter your own position with a distance.</p>
+      <p>On mobile devices with a touchscreen, you can use the usual two-finger zoom gesture to zoom in or out of the map. 
+      to zoom in or out of the map. On a PC, you can zoom using the Ctrl + mouse scroll key.</p>
+      <p>The map can be moved on a mobile device using the two-finger slide gesture. 
+      On a PC, hold down the left selection key and grab the map and drag or move it.</p>
+      `,
+    filter: "Use filters to show markers for selected game types.",
+    kartenlegende: `<p>After you have selected your location, a blue pin is displayed for you to check.
+       A colour marker is set for each player according to the games selected. 
+       A <span style="color: blue;">blue</span> marker represents <span style="color: blue;">AM</span>, an <span style="color: orange;">orange</span> marker represents <span style="color: orange;">SSM</span>, and a <span style="color: green;">green</span> colour represents a player 
+       who plays <span style="color: green;">AM and SSM</span>.</p>
+       <p>Your coloured marker will also have a <span style="color: red;">red</span> border.</p>
+       <p>If there are players that are not visible in the current map section, <span style="color: red;">red circle</span> arrows are displayed on the 
+       the edges to indicate the direction where players are still located.</p>
+       <p>When you click on the markers of other players, the player name appears.</p>
+       `,
+    statusanzeige: "Shows the current status of your input and submission."
+  },
+  fr: {
+    hilfeUeberschrift: "Aide pour l'application",
+    spielernameEingabe: `
+      <p>Saisissez votre nom de joueur pour vous identifier.[obligatoire]</p>
+      <p>Si tu veux vérifier plus tard quelle position tu as saisie, 
+      tu peux simplement inscrire ton nom ici et ta marque sera mise en évidence.</p>
+    `,
+    spielauswahl: "Sélectionnez les jeux auxquels vous participez (AM, SSM ou les deux).[obligatoire]",
+    standortWahl: `
+      <p>Cliquez sur la carte pour marquer votre position approximative.</p>
+      <p>Tant que ton nom de joueur et une sélection de jeux sont indiqués,
+      tu peux actualiser ta position en cliquant à nouveau sur ce bouton.</p>
+      <p>Si un membre de l'équipe a déjà placé un marqueur dans ta région, 
+      alors zoome plus profondément sur la carte afin de pouvoir saisir ta propre position avec une distance.</p>
+      <p>Sur les appareils mobiles à écran tactile, tu peux zoomer et dézoomer à l'aide du geste habituel des deux doigts. 
+      pour zoomer ou dézoomer sur la carte. Sur un PC, tu peux zoomer à l'aide de Ctrl + touche de défilement de la souris.</p>
+      <p>Pour déplacer la carte sur un appareil mobile, il suffit d'effectuer un geste de glissement à deux doigts. 
+      Sur un PC, tu saisis la carte en maintenant la touche de sélection gauche enfoncée et tu la fais glisser ou la déplace.</p>
+    `,
+    filter: "Utilisez les filtres pour afficher les marqueurs selon le jeu.",
+    kartenlegende: `<p>Après avoir choisi ton emplacement, une épingle <span style="color: blue;">bleue</span> s'affiche pour le contrôle.
+       Pour chaque joueur, une marque de couleur est placée en fonction des jeux sélectionnés. 
+       Une marque <span style="color: blue;">bleue</span> correspond à <span style="color: blue;">AM</span>, une <span style="color: orange;">orange</span> à <span style="color: orange;">SSM</span> et une coloration <span style="color: green;">verte</span> représente un joueur, 
+       qui joue <span style="color: green;">AM et SSM</span>.</p>
+       <p>Ton marqueur de couleur est également entouré d'une bordure <span style="color: red;">rouge</span>.</p>
+       <p>S'il y a des joueurs qui ne sont pas visibles sur la carte actuelle, des flèches circulaires <span style="color: red;">rouges</span> sont affichées sur les bords. 
+       sur les bords pour indiquer la direction où se trouvent encore des joueurs.</p>
+       <p>Si tu cliques sur les marqueurs des autres joueurs, le nom du joueur apparaît.</p>
+       `,
+    statusanzeige: "Affiche l'état actuel de votre saisie et de l'envoi."
+  }
+};
+
+    function getLang() {
+      const params = new URLSearchParams(window.location.search);
+      const lang = params.get("lang");
+      return translationsHelp[lang] ? lang : "de";
+    }
+
+    function applyTranslation() {
+      const lang = getLang();
+      const t = translationsHelp[lang];
+      const t_new = translationsHelpNew[lang];
+      const t_gen = translations[lang];
+      document.title = t.title
+      document.getElementById("content").innerHTML = t.content;
+
+      document.getElementById("navStart").textContent = t_gen.start;
+      document.getElementById("navHilfe").textContent = t_gen.help;
+      document.getElementById("navDisclaimer").textContent = t_gen.disclaimer;
+      document.getElementById("languageLabel").textContent = t_gen.language + ":";
+
+      // Links aktualisieren mit Sprachparametern
+      document.getElementById("navStart").href = `index.html?lang=${lang}`;
+      document.getElementById("navHilfe").href = `help.html?lang=${lang}`;
+      document.getElementById("navDisclaimer").href = `disclaimer.html?lang=${lang}`;
+
+      document.getElementById("languageSelect").value = lang;
+      document.getElementById("languageSelect").addEventListener("change", (e) => {
+        const newLang = e.target.value;
+        const url = new URL(window.location.href);
+        url.searchParams.set("lang", newLang);
+        window.location.href = url.toString();
+      })
+
+      document.getElementById("hero_title").textContent = t_gen.hero_title;
+      document.getElementById("hero_subtitle").textContent = t_gen.hero_subtitle;
+
+      //document.getElementById('hilfeUeberschrift').textContent = t_new.hilfeUeberschrift;
+      document.getElementById('spielernameEingabe').innerHTML = t_new.spielernameEingabe;
+      document.getElementById('spielauswahl').textContent = t_new.spielauswahl;
+      document.getElementById('standortWahl').innerHTML = t_new.standortWahl;
+      document.getElementById('filter').textContent = t_new.filter;
+      document.getElementById('kartenlegende').innerHTML = t_new.kartenlegende;
+      document.getElementById('statusanzeige').textContent = t_new.statusanzeige;
+    }
+
+    window.addEventListener("DOMContentLoaded", applyTranslation);
+  </script>
+</body>
+</html>
