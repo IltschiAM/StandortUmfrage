@@ -146,13 +146,13 @@ function recreateMapWithLanguage(lang) {
       });
     }
 
-  /*L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap'
-  }).addTo(window.map);*/
-  L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}.png', {
+  }).addTo(window.map);
+  /*L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}.png', {
       attribution: '&copy; Stadia Maps &copy; OpenMapTiles &copy; OpenStreetMap',
       maxZoom: 10
-  }).addTo(window.map);  
+  }).addTo(window.map);*/
     
   window.map.getContainer().addEventListener('wheel', function (e) {
     if (e.ctrlKey) {
