@@ -57,19 +57,30 @@
   </div>
   <h3 id="labelStandort" style="text-align:center;">Klicke deinen Standort ungefähr an</h3>
   <div id="mapContainer">
-    <div id="map"></div>
+      <div id="map"></div>
       <!-- Filter auf die Karte legen -->
       <div id="filterOverlay">
-      <!--<div style="text-align:center; margin: 10px;">-->
+        <!--<div style="text-align:center; margin: 10px;">-->
         <label id="labelFilter" for="filterSpiele">Filter: 
-        <select id="filterSpiele">
-          <option value="AM & SSM">AM & SSM</option>
-          <option value="AM">AM</option>
-          <option value="SSM">SSM</option>
+          <select id="filterSpiele">
+            <option value="AM & SSM">AM & SSM</option>
+            <option value="AM">AM</option>
+            <option value="SSM">SSM</option>
+          </select>
+        </label>
+      </div> <!-- fikterOverlay -->
+      <!-- Map Provider über der Karte -->
+      <div class="leaflet-control-container" id="mapProviderControl">
+        <select id="mapProviderSelect" style="position: absolute; top: 10px; right: 10px; z-index: 1000; padding: 4px;">
+          <option value="osm">OpenStreetMap</option>
+          <option value="stamen_toner">Stamen Toner</option>
+          <option value="esri">Esri Streets</option>
+          <option value="stamen_terrain">Stamen Terrain</option>
+          <option value="stamen_alidade">Stamen Alidade Smooth</option>
+          <option value="stamen_alidade_dark">Stamen Alidade Smooth Dark</option>
         </select>
-      </label>
-    </div>
-  </div>
+      </div> <!-- leafket container  -->
+  </div> <!-- Map Container -->
   <div id="directionIndicators" class="directions">
     <div id="indicatorTop" class="indicator top"></div>
     <div id="indicatorBottom" class="indicator bottom"></div>
@@ -103,6 +114,37 @@
     const coordsField = 'entry.1438475443'; // Feld-ID
     const nameField = 'entry.403967903'; // Form-Feld-ID für „Spielername“
     const gameField = 'entry.1647833182';
+
+    // TileLayer-Definitionen
+    const tileLayers = {
+      stamen_toner: L.tileLayer('https://tiles.stadiamaps.com/tiles/stamen_toner/{z}/{x}/{y}.png', {
+        attribution: '&copy; Stamen via Stadia Maps',
+        maxZoom: 20
+      }),
+      osm: L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors',
+        maxZoom: 19
+      }),
+      esri: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+        attribution: '&copy; Esri & contributors',
+        maxZoom: 19
+      }),
+      stamen_terrain: L.tileLayer('https://tiles.stadiamaps.com/tiles/stamen_terrain/{z}/{x}/{y}.png', {
+        attribution: '&copy; Stamen via Stadia Maps',
+        maxZoom: 20
+      }),
+      stamen_alidade: L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>',
+        maxZoom: 20
+      }),
+      stamen_alidade_dark: L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>',
+        maxZoom: 20
+      })
+    };
+
+    let map;
+    let currentLayer;
 
 document.addEventListener("DOMContentLoaded", () => {
   const lang = new URLSearchParams(window.location.search).get("lang") || "de";
@@ -144,16 +186,35 @@ function recreateMapWithLanguage(lang) {
         gestureHandling: true,
         gestureHandlingOptions: {text: gestureTexts_translations[lang] }
       });
-    }
 
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap'
-  }).addTo(window.map);
-  /*L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}.png', {
-      attribution: '&copy; Stadia Maps &copy; OpenMapTiles &copy; OpenStreetMap',
-      maxZoom: 10
-  }).addTo(window.map);*/
-    
+    } // if container 
+
+      // Anfangskarte hinzufügen
+      if (currentLayer) {
+         currentLayer = currentLayer.addTo(window.map)
+      } else {
+         const defaultLayer = tileLayers.osm;
+         currentLayer = defaultLayer.addTo(window.map);
+      }
+
+      // select-Element im statischen HTML
+      const select = document.getElementById('mapProviderSelect');
+      if (select) {
+        select.addEventListener('change', function (e) {
+          const selected = e.target.value;
+          if (tileLayers[selected]) {
+            window.map.removeLayer(currentLayer);
+            currentLayer = tileLayers[selected];
+            currentLayer.addTo(window.map);
+          }
+        });
+      }
+
+    // original
+    /*L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap'
+    }).addTo(window.map);*/
+
   window.map.getContainer().addEventListener('wheel', function (e) {
     if (e.ctrlKey) {
       window.map.scrollWheelZoom.enable();
