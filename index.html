@@ -57,10 +57,10 @@
   </div>
   <h3 id="labelStandort" style="text-align:center;">Klicke deinen Standort ungefähr an</h3>
   <div id="mapContainer">
-      <div id="map"></div>
-      <!-- Filter auf die Karte legen -->
+    <div id="map"></div>
+      <!-- Filter auf die Karte -->
       <div id="filterOverlay">
-        <!--<div style="text-align:center; margin: 10px;">-->
+      <!--<div style="text-align:center; margin: 10px;">-->
         <label id="labelFilter" for="filterSpiele">Filter: 
           <select id="filterSpiele">
             <option value="AM & SSM">AM & SSM</option>
@@ -68,7 +68,7 @@
             <option value="SSM">SSM</option>
           </select>
         </label>
-      </div> <!-- fikterOverlay -->
+      </div>
       <!-- Map Provider über der Karte -->
       <div class="leaflet-control-container" id="mapProviderControl">
         <select id="mapProviderSelect" style="position: absolute; top: 10px; right: 10px; z-index: 1000; padding: 4px;">
@@ -78,9 +78,11 @@
           <option value="stamen_terrain">Stamen Terrain</option>
           <option value="stamen_alidade">Stamen Alidade Smooth</option>
           <option value="stamen_alidade_dark">Stamen Alidade Smooth Dark</option>
+
         </select>
-      </div> <!-- leafket container  -->
-  </div> <!-- Map Container -->
+      </div>
+    </div>
+  </div>
   <div id="directionIndicators" class="directions">
     <div id="indicatorTop" class="indicator top"></div>
     <div id="indicatorBottom" class="indicator bottom"></div>
@@ -144,7 +146,8 @@
     };
 
     let map;
-    let currentLayer;
+    let currentLayer ;
+
 
 document.addEventListener("DOMContentLoaded", () => {
   const lang = new URLSearchParams(window.location.search).get("lang") || "de";
@@ -315,7 +318,6 @@ function setLanguage(lang) {
 
   recreateMapWithLanguage(lang);
 }
-    let map;
 
     // Setze Sprache beim Laden
     let savedLang = getLang();
@@ -451,3 +453,4 @@ function loadData() {
   
 </body>
 </html>
+
