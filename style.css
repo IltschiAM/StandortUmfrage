@@ -59,13 +59,13 @@ body {
   z-index: 1000;
 }
 
-#filterOverlay select {
+#filterOverlay, #mapProviderControl select {
   font-size: 1rem;
   padding: 4px 8px;
   background-color: rgba(200, 200, 200, 0.7);
 }
 
-#mapProviderControl select {
+/*#mapProviderControl select {
   font-size: 12px;
   padding: 2px 6px;
   height: 28px;
@@ -73,7 +73,7 @@ body {
   border: none;
   background: none;
   font-family: inherit;
-}
+}*/
 
 #mapProviderControl select option {
   font-size: 16px;
