@@ -74,13 +74,12 @@
         <select id="mapProviderSelect" style="position: absolute; top: 10px; right: 10px; z-index: 1000; padding: 4px;">
           <option value="osm">OpenStreetMap</option>
           <option value="esri">Esri Streets</option>
-          <option value="carto_light">Carto Light</option>
-          <option value="carto_dark">Carto Dark</option>
           <option value="stamen_toner">Stamen Toner</option>
           <option value="stamen_terrain">Stamen Terrain</option>
           <option value="stamen_alidade">Stamen Alidade Smooth</option>
           <option value="stamen_alidade_dark">Stamen Alidade Smooth Dark</option>
-
+          <option value="carto_light">Carto Light</option>
+          <option value="carto_dark">Carto Dark</option>
         </select>
       </div>
     </div>
@@ -150,17 +149,20 @@
         subdomains: 'abcd'
       }),
       carto_dark: L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-        attribut '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> & Carto',
-        subdomains: 'abd'
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> & Carto',
+        subdomains: 'abcd'
       })
-    }
+    };
+
     let map;
-    let curren
+    let currentLayer ;
+
+
 document.addEventListener("DOMContentLoaded", () => {
   const lang = new URLSearchParams(window.location.search).get("lang") || "de";
   document.getElementById("navHilfe").href = `help.html?lang=${lang}`;
-  document.getElenavDisclaimer").href = `disclaimer.html?lang=${lang}`;
-  document.getElementById("languageSelect").value = lang
+  document.getElementById("navDisclaimer").href = `disclaimer.html?lang=${lang}`;
+  document.getElementById("languageSelect").value = lang;
 
   document.getElementById("languageSelect").addEventListener("change", (e) => {
     const newLang = e.target.value;
@@ -410,7 +412,9 @@ function checkOffscreenMarkers(markers) {
 
      return parsed.data;
   }
-    
+    		
+
+	
 function loadData() {
   fetch(csvURL)
     .then(res => res.text())
@@ -460,4 +464,5 @@ function loadData() {
   
 </body>
 </html>
+
 
