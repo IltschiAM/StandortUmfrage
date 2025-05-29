@@ -469,6 +469,16 @@ function loadData() {
                 fillColor: color,
                 fillOpacity: 0.9
              }).bindPopup(name);
+             marker.on('click', function (e) {
+               const m = e.target;
+               m.openPopup();
+               setTimeout(() => {
+                  const popup = m.getPopup();
+                  if (popup && popup.isOpen()) {
+                    m.closePopup();
+                  }
+               }, 3000);
+             });
              markerGroup.addLayer(marker);
              visibleMarkers.push(marker);
           }
