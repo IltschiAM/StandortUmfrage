@@ -339,3 +339,54 @@ nav select option {
   border-bottom: 1px solid #ccc; /* hellgraue feine Linie */
   padding: 8px;
 }
+
+/* Standardmäßig ausblenden */
+.hamburger {
+  display: none;
+  font-size: 24px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 1000;
+}
+
+/* Hamburger button */
+@media screen and (max-width: 600px) {
+  .hamburger {
+    display: block;
+  }
+
+  .topnav {
+    flex-direction: column;
+    align-items: flex-start;
+    display: none;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 10px;
+    width: auto;
+    max-width: 90vw;
+    position: absolute;
+    top: 50px;
+    left: 10px;                    /* ⬅️ statt right: 10px */
+    border-radius: 5px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+    z-index: 999;
+  }
+
+  .topnav.open {
+    display: flex;
+  }
+
+  .topnav.show {
+    display: flex;
+  }
+
+  .topnav a,
+  .topnav span {
+    text-align: left;
+    width: 100%;
+    white-space: nowrap;
+    padding-left: 10px;
+  }
+}
