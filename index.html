@@ -259,6 +259,23 @@ function recreateMapWithLanguage(lang) {
   window.map.on('moveend zoomend', () => {
     checkOffscreenMarkers(markerGroup.getLayers());
   });
+  const viewOnlyControl = L.control({ position: 'topleft' });
+  viewOnlyControl.onAdd = function () {
+    let labelText = translations[lang].viewonly_label;
+    const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
+    container	.innerHTML = `
+      <label class="custom-checkbox-label">
+        <input type="checkbox" id="viewOnlyMode" class="custom-checkbox" />
+        <span class="custom-checkbox-box"></span>
+        ${labelText}
+      </label>
+    `;
+    // Mausinteraktion erlauben (nicht von Karte verschlucken lassen)
+    L.DomEvent.disableClickPropagation(container);
+    return container;
+  };
+  viewOnlyControl.addTo(window.map);
+
 
   loadData(); // Erste Ladung
   setInterval(loadData, 20000); // Alle 20 Sekunden neu laden
@@ -266,6 +283,10 @@ function recreateMapWithLanguage(lang) {
 
   let marker;
   window.map.on('click', function(e) {
+    const isViewOnly = document.getElementById('viewOnlyMode').checked;
+    if (isViewOnly) {
+      return; // Keine Eingabe erlauben
+    }
     const nameField = document.getElementById('spielerName');
     if (!nameField || !nameField.value.trim()) {
       alert(translations[savedLang].alertKeinName);
