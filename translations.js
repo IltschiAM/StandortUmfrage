@@ -29,7 +29,8 @@ const translations = {
     direction_left: "Spieler im Westen",
     direction_right: "Spieler im Osten",
     hero_title: "Willkommen zur Standort-Umfrage",
-    hero_subtitle: "für alle Athletic Maniacs Spieler"
+    hero_subtitle: "für alle Athletic Maniacs Spieler",
+    viewonly_label: "nur anschauen"
   },
   en: {
     start: "Survey",
@@ -61,7 +62,8 @@ const translations = {
     direction_left: "Players to the West",
     direction_right: "Players to the East",
     hero_title: "Welcome to the Location Survey",
-    hero_subtitle: "for all Athletic Maniacs players"
+    hero_subtitle: "for all Athletic Maniacs players",
+    viewonly_label: "view only"
   },
   fr: {
     start: "Sondage",
@@ -93,7 +95,8 @@ const translations = {
     direction_left: "Jouers à l'ouest",
     direction_right: "Jouers à l'est",
     hero_title: "Bienvenue au sondage de localisation",
-    hero_subtitle: "pour tous les joueurs d'Athletic Maniacs"
+    hero_subtitle: "pour tous les joueurs d'Athletic Maniacs",
+    viewonly_label: "mode consultation"
   }
 };
 
