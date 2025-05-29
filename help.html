@@ -10,6 +10,22 @@
 </head>
 <body>
   <nav>
+    <button class="hamburger" id="menu-toggle" aria-label="Menü öffnen">☰</button>
+    <div class="topnav" id="main-menu">
+      <a id="navStart" href="index.html">Start</a>
+      <a id="navHilfe" href="help.html" class="menuactive">Hilfe</a>
+      <a id="navDisclaimer" href="disclaimer.html">Disclaimer</a>
+      <span class="language-select">
+        <label id="languageLabel" for="languageSelect">Sprache:</label>
+        <select id="languageSelect">
+          <option value="de">Deutsch</option>
+          <option value="en">English</option>
+          <option value="fr">Français</option>
+        </select>
+      </span>
+    </div>
+  </nav>
+  <nav>
      <div class="topnav">
        <a id="navStart" href="index.html">Start</a>
        <a id="navHilfe" href="help.html" class="menuactive">Hilfe</a>
@@ -60,6 +76,12 @@
   </tr>
 </table>
   <script src="translations.js"></script>
+  <script>
+    document.getElementById("menu-toggle").addEventListener("click", function () {
+      const menu = document.getElementById("main-menu");
+      menu.classList.toggle("open");
+    });
+  </script>
   <script>
     const translationsHelp = {
       de: {
