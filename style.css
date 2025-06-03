@@ -130,6 +130,21 @@ body {
   color: white;
 }
 
+.menu-left {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.menu-right {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  white-space: nowrap;
+}
+
+
 .language-select {
   color: white;
   display: flex;
@@ -389,6 +404,15 @@ nav select option {
     white-space: nowrap;
     padding-left: 10px;
   }
+
+  .menu-left,
+  .menu-right {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    white-space: normal;
+  }
+
 }
 
 .leaflet-control-custom {
@@ -445,4 +469,59 @@ nav select option {
 .custom-checkbox:checked + .custom-checkbox-box {
   background-color: #333;
   border-color: #333;
+}
+
+  #adminLoginBox {
+    display: none;
+    position: absolute;
+    top: 48px;
+    right: 12px;
+    background: rgba(150,159,150,0.4);
+    border: 1px solid #333; //#ccc;
+    padding: 10px;
+    z-index: 1000;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  }
+
+  #adminLoginBox input[type="password"] {
+    width: 160px;
+    margin-bottom: 6px;
+  }
+
+
+/* Container für Zahnrad + Häkchen */
+.admin-control {
+  position: relative;
+  display: inline-block;
+  margin-left: 10px;
+}
+
+/* Zahnrad-Button */
+#adminIcon {
+  background: none;
+  color: white;
+  border: none;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.admin-check {
+  position: absolute;
+  top: 9px;
+  right: 2px;
+  font-size: 28px;
+  font-weight: bold;
+  color: limegreen;         /* Grüner Vordergrund */
+  background: none;     /* Kein Hintergrund */
+  display: none;        /* Nur im Admin-Modus sichtbar */
+  pointer-events: none;
+}
+
+.outlined-text {
+  //color: white; /* z. B. weiße Schrift */
+  text-shadow:
+    -1px -1px 0 #444,
+     1px -1px 0 #444,
+    -1px  1px 0 #444,
+     1px  1px 0 #444;
 }

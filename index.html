@@ -11,15 +11,20 @@
   <script src="https://unpkg.com/leaflet-gesture-handling"></script>
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=check,settings" />
+  <!--<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=settings" />-->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <nav>
     <button class="hamburger" id="menu-toggle" aria-label="Menü öffnen">☰</button>
     <div class="topnav" id="main-menu">
+    <div class="menu-left">
       <a id="navStart" href="index.html" class="menuactive">Start</a>
       <a id="navHilfe" href="help.html">Hilfe</a>
       <a id="navDisclaimer" href="disclaimer.html">Disclaimer</a>
+    </div>
+    <div class="menu-left">
       <span class="language-select">
         <label id="languageLabel" for="languageSelect">Sprache:</label>
         <select id="languageSelect">
@@ -28,6 +33,10 @@
           <option value="fr">Français</option>
         </select>
       </span>
+      <div class="admin-control">
+        <button id="adminIcon" title="Admin Login"><span class="material-symbols-outlined">settings</span></button>
+        <span id="adminCheckmark" class="admin-check"><span class="material-symbols-outlined outlined-text">check</span></span>
+      </div>
     </div>
   </nav>
   <!--<nav>
@@ -70,6 +79,12 @@
         </select>
       </label>
     </div>
+  </div>
+  <!-- Admin Login Box -->
+  <div id="adminLoginBox">
+    <label for="adminPassword">Admin Passwort:</label><br>
+    <input type="password" id="adminPassword"><br>
+    <button onclick="checkAdminPassword()">Login</button>
   </div>
   <h3 id="labelStandort" style="text-align:center;">Klicke deinen Standort ungefähr an</h3>
   <div id="mapContainer">
@@ -134,7 +149,8 @@
     const sheetID = '1FWJ4wITDLekDidgoVY2h64EmPjPV1Ee-IOz8tDI1c0s';
     const csvURL = `https://docs.google.com/spreadsheets/d/${sheetID}/export?format=csv`;
     const formURL = 'https://docs.google.com/forms/d/1eHl86G0vzQkdx3YN1_4zrKQWyQ1QRoSoCFRkYPwIpBw/formResponse';
-    const formAppURL = 'https://script.google.com/macros/s/AKfycby3AedcVo8YrkxT-7s8r9ka7JacEhP405wbMGeOF06uR-6EYCpt7jXM8yOozWabRP76/exec';
+    //const formAppURL = 'https://script.google.com/macros/s/AKfycby3AedcVo8YrkxT-7s8r9ka7JacEhP405wbMGeOF06uR-6EYCpt7jXM8yOozWabRP76/exec';
+    const formAppURL = 'https://script.google.com/macros/s/AKfycbzfOI9BGMPFOGnmBnRdiA6v6ACkoLWZzumQdiUsZq4bbAmQ956ZoKriAqN01U6QGAPC/exec';
     const coordsField = 'entry.1438475443'; // Feld-ID
     const nameField = 'entry.403967903'; // Form-Feld-ID für „Spielername“
     const gameField = 'entry.1647833182';
@@ -176,7 +192,62 @@
     };
 
     let map;
-    let currentLayer ;
+    let currentLayer;
+    let isSubmitting = false;
+
+async function hashSHA512(text) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(text);
+  const hashBuffer = await crypto.subtle.digest('SHA-512', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  return hashHex;
+}
+
+const adminHash = "2a611c3dc7fd071a8383c8f880238850706a810e6e75dcc5de59fd246b7ef470a25ee4d27022d6cde69094320ed64469850e7d9a092e75d61d70d5c90964dec6";
+document.getElementById('adminIcon').addEventListener('click', () => {
+  const box = document.getElementById('adminLoginBox');
+  box.style.display = box.style.display === 'block' ? 'none' : 'block';
+});
+
+
+async function checkAdminPassword() {
+  const inputField = document.getElementById('adminPassword');
+  const input = inputField.value;
+  const hashBuffer = await crypto.subtle.digest('SHA-512', new TextEncoder().encode(input));
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  enableAdminFeatures(hashHex === adminHash);
+  if (hashHex === adminHash) {
+    document.getElementById('adminLoginBox').style.display = 'none';
+  } else {
+    alert('Falsches Passwort');
+  }
+  // Eingabe zurücksetzen
+  inputField.value = '';
+  
+}
+
+
+	
+function enableAdminFeatures(isEnabled) {
+  window.isAdmin = !!isEnabled;
+
+  //const adminStatus = document.getElementById('adminStatus');
+  const checkmark = document.getElementById('adminCheckmark');
+  const adminElements = document.querySelectorAll('.admin-only');
+
+  if (window.isAdmin) {
+    //adminStatus.textContent = '';
+    adminElements.forEach(el => el.style.display = 'inline-block');
+  } else {
+    //adminStatus.textContent = '';
+    adminElements.forEach(el => el.style.display = 'none');
+  }
+  if (checkmark) {
+    checkmark.style.display = window.isAdmin ? 'inline' : 'none';
+  }
+}
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -263,7 +334,7 @@ function recreateMapWithLanguage(lang) {
   viewOnlyControl.onAdd = function () {
     let labelText = translations[lang].viewonly_label;
     const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
-    container	.innerHTML = `
+    container.innerHTML = `
       <label class="custom-checkbox-label">
         <input type="checkbox" id="viewOnlyMode" class="custom-checkbox" />
         <span class="custom-checkbox-box"></span>
@@ -282,11 +353,24 @@ function recreateMapWithLanguage(lang) {
   document.getElementById('filterSpiele').addEventListener('change', loadData);
 
   let marker;
+  //let isSubmitting = false;
   window.map.on('click', function(e) {
     const isViewOnly = document.getElementById('viewOnlyMode').checked;
     if (isViewOnly) {
       return; // Keine Eingabe erlauben
     }
+    if (isSubmitting) {
+      //setTimeout(() => {
+        document.getElementById('statustxt').textContent = translations[lang].msgWarten;
+      //}, 3000);
+      return;
+    }
+    const target = e.originalEvent?.target;
+    if (target instanceof SVGPathElement || target instanceof SVGElement) {
+      document.getElementById('debug').textContent += ('Marker wurde angeklickt – Map-Click übersprungen');
+      return;
+     }
+
     const nameField = document.getElementById('spielerName');
     if (!nameField || !nameField.value.trim()) {
       alert(translations[savedLang].alertKeinName);
@@ -318,6 +402,7 @@ function recreateMapWithLanguage(lang) {
     data.append('spiele', spielAuswahl);
 
     document.getElementById('statustxt').textContent = translations[lang].statusSende;
+    isSubmitting = true;
 
     fetch(formAppURL, {
       method: 'POST',
@@ -331,6 +416,8 @@ function recreateMapWithLanguage(lang) {
       }, 3000);
     }).catch(() => {
       document.getElementById('statustxt').textContent = translations[lang].statusFehler;
+    }).finally(() => {
+      isSubmitting = false;
     });
   });
   }, 100); // check every 100ms
@@ -469,6 +556,7 @@ function loadData() {
       // Karte leeren (nur Marker löschen)
       markerGroup.clearLayers();
       const visibleMarkers = [];
+      let clickTimeout;
 
       entries.forEach(entry => {
         if (entry.StandortKoordinaten) {
@@ -477,6 +565,7 @@ function loadData() {
           const currentName = document.getElementById('spielerName').value.trim();
           const isCurrentUser = (name === currentName);
           const spiele = entry.SpielAuswahl || '';
+
           if ((!filter || filter === spiele) || spiele === 'AM & SSM' || filter === 'AM & SSM' || isCurrentUser) {
              let color = 'gray';
              if (spiele === 'AM') color = 'blue';
@@ -489,27 +578,78 @@ function loadData() {
                 opacity: isCurrentUser ? 0.4 : 0.3,
                 fillColor: color,
                 fillOpacity: 0.9
-             }).bindPopup(name);
+             }); //.bindPopup(name);
+             marker.spielerName = name;
              marker.on('click', function (e) {
                const m = e.target;
-               m.openPopup();
-               setTimeout(() => {
-                  const popup = m.getPopup();
-                  if (popup && popup.isOpen()) {
-                    m.closePopup();
+               if (e.originalEvent) {
+                 e.originalEvent.stopPropagation();  // verhindert map.click
+               }
+               if (clickTimeout) {
+                 // Zweiter Klick innerhalb der Zeit → Doppelklick
+                 clearTimeout(clickTimeout);
+                 clickTimeout = null;
+                 
+                 const popupContent = `
+                   <div style="min-width:180px;">
+                     <strong>${marker.spielerName}</strong><br>
+                     ${window.isAdmin ? '<button id="deletePlayerBtn" style="margin-top:6px;">🗑️ Spieler löschen</button>' : 'Login als Admin nötig!'}
+                   </div>
+                 `;
+                 //marker.bindPopup(popupContent).openPopup();
+                 L.popup()
+                 .setLatLng(e.latlng)
+                 .setContent(popupContent)
+                 .openOn(window.map);
+                 setTimeout(() => {
+                  const btn = document.getElementById('deletePlayerBtn');
+                  if (btn) {
+                    btn.addEventListener('click', () => {
+                      deletePlayer(marker.spielerName);
+                    });
                   }
-               }, 3000);
-             });
+                }, 100);
+               } else {
+                 // Einfachklick → Timeout setzen für Erkennung
+                 clickTimeout = setTimeout(() => {
+                   clickTimeout = null;
+                   L.popup()
+                     .setLatLng(marker.getLatLng())
+                     .setContent(`<strong>${marker.spielerName}</strong>`)
+                     .openOn(window.map);
+                   setTimeout(() => {
+                     window.map.closePopup();
+                   }, 3000);
+                 }, 250); // Zeitfenster für Doppelklick
+               } // if clickTimeout
+             }); // on click
              markerGroup.addLayer(marker);
              visibleMarkers.push(marker);
-          }
-        }
-      });
+          } // if filter conditions
+        } // if Standortkoordinaten
+      }); // if foreach entry
       checkOffscreenMarkers(visibleMarkers);
-    })
+    }) // fetch then.then.
     .catch(err => {
       document.getElementById('debug').textContent += "\n\nFehler beim Laden:\n" + err;
     });
+}
+
+function deletePlayer(playerName) {
+  if (confirm(`Soll der Spieler ${playerName} wirklich gelöscht werden?`)) {
+    const url = `${formAppURL}?action=delete&spielerName=${encodeURIComponent(playerName)}`;
+    document.getElementById('debug').textContent += "\n\ncall delete for " + playerName + "with URL " + url;
+    fetch(url)
+    .then(response => response.text())
+    .then(msg => {
+      document.getElementById('debug').textContent += '\n' + msg;
+      // Popup schließen
+      window.map.closePopup();
+      // Marker und Daten neu laden
+      loadData();
+    })
+    .catch(err => document.getElementById('debug').textContent += '\nFehler beim Löschen: ' + err);
+  }
 }
 
   </script>
