@@ -89,6 +89,27 @@ body {
   margin-top: 10px;
   font-weight: bold;
 }
+#statistics {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.statusbar {
+  display: flex;
+  flex-wrap: wrap;                    /* Zeilenumbruch bei Bedarf */
+  justify-content: space-between;    /* Links und rechts ausrichten */
+  align-items: center;
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  //background-color: #f7f7f7;
+  //border-top: 1px solid #ddd;
+  gap: 8px;                          /* Abstand zwischen den Elementen bei Umbruch */
+}
+
+.status, .statistics {
+  white-space: nowrap;
+  //flex: 1 1 auto;
+}
 
 #debug {
   text-align: left;

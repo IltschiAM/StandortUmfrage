@@ -121,10 +121,23 @@
     <div id="indicatorLeft" class="indicator left"></div>
     <div id="indicatorRight" class="indicator right"></div>
   </div>
-  <!-- Statusanzeige -->
-  <div id="status" class="status">
-    <span id="statusLabelPrefix">Status:</span>
-    <span id="statustxt">Bereit</span>
+  <div class="statusbar">
+    <!-- Statusanzeige -->
+    <div id="status" class="status">
+      <span id="statusLabelPrefix">Status:</span>
+      <span id="statustxt">Bereit</span>
+    </div>
+    <!-- Statistik Anzeige -->
+    <div id="statistics" class="statistics">
+      <span id="statisticsLabel">Teilnehmer gesamt:</span>
+      <span id="statisticsAmount">n/a</span>
+      <span id="statisticsAMAmountLabel">(AM:</span>
+      <span id="statisticsAMAmount">n/a</span>,
+      <span id="statisticsSSMAmountLabel">SSM:</span>
+      <span id="statisticsSSMAmount">n/a</span>,
+      <span id="statisticsAMandSSMAmountLabel">AM & SSM:</span>
+      <span id="statisticsAMandSSMAmount">n/a</span>)
+    </div>
   </div>
   <div id="info">Letzter Klick: <span id="coords">-</span></div>
   <div id="debug" style="white-space: pre-wrap; font-family: monospace; background:#eee; padding:10px;"></div>
@@ -449,6 +462,8 @@ function setLanguage(lang) {
   document.getElementById('labelFilter').childNodes[0].nodeValue = t.labelFilter + ' ';
   document.getElementById('statusLabelPrefix').textContent = t.status;
   document.getElementById('statustxt').textContent = t.statusBereit;
+  document.getElementById('statisticsLabel').textContent = t.statisticsLabel;
+  document.getElementById('statisticsAmount').textContent = "n/a";
 
   window.currentTranslations = t;
   localStorage.setItem('language', lang);
@@ -557,6 +572,9 @@ function loadData() {
       markerGroup.clearLayers();
       const visibleMarkers = [];
       let clickTimeout;
+      let countAMOnly = 0;
+      let countSSMOnly = 0;
+      let countAMandSSM = 0;
 
       entries.forEach(entry => {
         if (entry.StandortKoordinaten) {
@@ -568,9 +586,16 @@ function loadData() {
 
           if ((!filter || filter === spiele) || spiele === 'AM & SSM' || filter === 'AM & SSM' || isCurrentUser) {
              let color = 'gray';
-             if (spiele === 'AM') color = 'blue';
-             else if (spiele === 'SSM') color = 'darkorange';
-             else if (spiele === 'AM & SSM') color = 'green';
+             if (spiele === 'AM') {
+               color = 'blue';
+               countAMOnly++;
+             } else if (spiele === 'SSM') {
+               color = 'darkorange';
+               countSSMOnly++;
+             } else if (spiele === 'AM & SSM') {
+               color = 'green';
+               countAMandSSM++;
+             }
              const marker = L.circleMarker([lat, lng], {
                 radius: 6,
                 weight: 7,
@@ -629,6 +654,10 @@ function loadData() {
         } // if Standortkoordinaten
       }); // if foreach entry
       checkOffscreenMarkers(visibleMarkers);
+      document.getElementById('statisticsAmount').textContent = entries.length;
+      document.getElementById('statisticsAMAmount').textContent = countAMOnly;
+      document.getElementById('statisticsSSMAmount').textContent = countSSMOnly;
+      document.getElementById('statisticsAMandSSMAmount').textContent = countAMandSSM;
     }) // fetch then.then.
     .catch(err => {
       document.getElementById('debug').textContent += "\n\nFehler beim Laden:\n" + err;
@@ -656,5 +685,4 @@ function deletePlayer(playerName) {
   
 </body>
 </html>
-
 
